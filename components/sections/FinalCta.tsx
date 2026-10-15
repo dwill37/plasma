@@ -4,8 +4,7 @@ import Image from "next/image";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import type { PointerEvent } from "react";
 import { WhatsAppIcon } from "@/components/ui/Icons";
-import { ORGANIC_RADII } from "@/components/ui/blob";
-import { EASE_OUT, MaskWords, PlasmaBlob } from "@/components/ui/motion";
+import { EASE_OUT, MaskWords } from "@/components/ui/motion";
 import { FINAL_CTA_PHOTO } from "@/lib/images";
 import { waLink } from "@/lib/site";
 
@@ -37,7 +36,7 @@ function MagneticButton() {
       onPointerLeave={reset}
       style={{ x: sx, y: sy }}
       whileTap={{ scale: 0.96 }}
-      className="group inline-flex h-16 items-center gap-3 whitespace-nowrap rounded-full bg-violet px-8 text-lg font-semibold text-white shadow-[0_20px_50px_-15px_rgba(82,22,230,0.8)] transition-colors hover:bg-violet-deep md:h-20 md:px-12 md:text-xl"
+      className="group inline-flex h-16 items-center gap-3 whitespace-nowrap rounded-full bg-accent px-8 text-lg font-semibold text-night shadow-[0_0_50px_-10px_rgba(255,61,142,0.8)] transition-colors hover:bg-accent-hover md:h-20 md:px-12 md:text-xl"
     >
       <WhatsAppIcon size={26} className="transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" />
       Book on WhatsApp
@@ -49,16 +48,23 @@ export function FinalCta() {
   const reduce = useReducedMotion();
 
   return (
-    <section aria-labelledby="cta-title" className="relative isolate overflow-clip bg-plasma">
-      <PlasmaBlob seeds={[44, 15, 26]} duration={16} className="absolute -left-40 -top-40 -z-10 w-[36rem] text-[#ff76a6]" />
-      <PlasmaBlob seeds={[9, 38, 20]} duration={13} className="absolute -bottom-48 left-1/3 -z-10 w-[30rem] text-violet-soft/60" />
+    <section aria-labelledby="cta-title" className="grid-lines relative isolate overflow-clip border-t border-white/[0.06] bg-night">
+      {/* A charged line runs across the band once it's in view */}
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-1/2 -z-10 h-px origin-left bg-accent/70 shadow-[0_0_16px_2px_rgba(255,61,142,0.6)]"
+        initial={reduce ? false : { scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 1.4, ease: [0.65, 0, 0.35, 1] }}
+      />
 
       <div className="mx-auto grid max-w-[1400px] items-center gap-12 px-4 py-20 sm:px-6 md:py-28 lg:grid-cols-12 lg:px-10">
         <div className="lg:col-span-7">
           <h2 id="cta-title" className="display text-[clamp(3rem,9vw,7.5rem)] leading-[0.88] text-ink">
-            <MaskWords text="Let's make it yours." stagger={0.1} />
+            <MaskWords text="Let's make it yours." stagger={0.1} accents={{ "yours.": "text-accent" }} />
           </h2>
-          <p className="mt-6 max-w-md text-lg font-medium leading-relaxed text-ink md:text-xl">
+          <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-soft md:text-xl">
             A piercing, a tattoo, an idea you can&apos;t shake. Send it our way.
           </p>
           <div className="mt-10">
@@ -74,10 +80,7 @@ export function FinalCta() {
           transition={{ type: "spring", stiffness: 90, damping: 14 }}
         >
           <motion.div
-            className="relative aspect-[4/5] overflow-hidden border-[8px] border-paper shadow-[0_40px_80px_-30px_rgba(82,22,230,0.6)]"
-            style={{ borderRadius: ORGANIC_RADII[1] }}
-            animate={reduce ? undefined : { borderRadius: [...ORGANIC_RADII].reverse() }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            className="relative aspect-[4/5] overflow-hidden rounded-[28px] ring-1 ring-accent/50 shadow-[0_0_80px_-20px_rgba(255,61,142,0.55)]"
           >
             <motion.div
               className="absolute inset-0"

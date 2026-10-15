@@ -3,12 +3,12 @@
  * Every fact here comes from the studio's Google Business Profile.
  */
 
-/** Flip to false to hide the "Also at PLASMA: smoke shop" band. */
+/** Flip to false to hide the smoke shop block and its nav link. */
 export const SHOW_SMOKE_SHOP = true;
 
 export const BUSINESS = {
   name: "PLASMA",
-  fullName: "PLASMA Body Piercing, Tattoo & Smoke Shop",
+  fullName: "\"PLASMA\" Body Piercing - Tattoo & Smoke Shop",
   rating: 4.8,
   reviewCount: 124,
   street: "Ejido Sur",
@@ -30,15 +30,16 @@ export const BUSINESS = {
 export const ADDRESS_LINE = `${BUSINESS.street}, ${BUSINESS.neighborhood}, ${BUSINESS.postalCode} ${BUSINESS.city}, ${BUSINESS.regionShort}, ${BUSINESS.country}`;
 
 export const MESSAGES = {
-  general: "Hi PLASMA! I saw your website and I'd like to book an appointment.",
-  piercing: "Hi PLASMA! I saw your website and I'd like to book a piercing.",
-  souvenir: "Hi PLASMA! I'd love a tattoo as a souvenir of my trip.",
-  tribute: "Hi PLASMA! I'd like a tattoo as a tribute to someone special.",
-  idea: "Hi PLASMA! I have an idea for a tattoo and I'd like a quote.",
-  shauna: "Hi PLASMA! I'd like to book a tattoo with Shauna.",
-  nigelle: "Hi PLASMA! I'd like to book with Nigelle Noir.",
-  quote: "Hi PLASMA! I saw your website and I'd like a quote.",
-  availability: "Hi PLASMA! I'd like to check your availability.",
+  general: "Hi PLASMA! I'd like info about a piercing/tattoo:",
+  piercing: "Hi PLASMA! I'd like info about a piercing:",
+  souvenir: "Hi PLASMA! I'd love a tattoo as a souvenir of my trip to Mexico:",
+  tribute: "Hi PLASMA! I'd like a tattoo as a tribute to someone special:",
+  idea: "Hi PLASMA! I have a tattoo idea and I'd like a quote:",
+  shop: "Hi PLASMA! I'd like info about your smoke shop:",
+  shauna: "Hi PLASMA! I'd like to book a tattoo with Shauna:",
+  nigelle: "Hi PLASMA! I'd like to book with Nigelle Noir:",
+  quote: "Hi PLASMA! I'd like a quote for:",
+  availability: "Hi PLASMA! When can I come by the shop?",
 } as const;
 
 export function waLink(message: string = MESSAGES.general) {
@@ -57,9 +58,10 @@ export const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent
 
 export const NAV_LINKS = [
   { href: "#piercing", label: "Piercing" },
-  { href: "#tattoos", label: "Tattoos" },
-  { href: "#artists", label: "Artists" },
+  { href: "#tattoo", label: "Tattoo" },
+  ...(SHOW_SMOKE_SHOP ? [{ href: "#shop", label: "Shop" }] : []),
+  { href: "#team", label: "Team" },
   { href: "#reviews", label: "Reviews" },
-  { href: "#location", label: "Location" },
+  { href: "#visit", label: "Visit" },
   { href: "#faq", label: "FAQ" },
-] as const;
+];

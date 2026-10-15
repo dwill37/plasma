@@ -2,57 +2,51 @@
 
 /*
   PLASMA design tokens.
-  Light theme only, by brief: no dark section backgrounds anywhere.
-  Accent pairing: electric violet (buttons, links, focus) + plasma pink (shapes, highlights).
-  Pink never carries white text (contrast too low); it always pairs with ink.
+  Dark base, one electric accent (plasma pink) used sparingly:
+  CTAs, key words, glow lines, stars. Everything else is ink on near-black.
+  Accent never carries white text (3.3:1); it always pairs with the dark base (5.9:1).
 */
 @theme {
-  --color-lilac: #ede8ff;
-  --color-lilac-deep: #ddd4ff;
-  --color-paper: #fcfbff;
-  --color-ink: #1e1438;
-  --color-ink-soft: #4b4166;
-  --color-violet: #6a2bff;
-  --color-violet-deep: #5216e6;
-  --color-violet-soft: #c9b8ff;
-  --color-plasma: #ff4f8b;
-  --color-plasma-soft: #ffc2d6;
-  --color-plasma-ink: #c8195a;
+  --color-night: #0b0a10;
+  --color-surface: #131219;
+  --color-raised: #1b1924;
+  --color-ink: #f4f2f8;
+  --color-ink-soft: #aaa5b8;
+  --color-accent: #ff3d8e;
+  --color-accent-hover: #ff62a4;
 
   --font-display: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-
-  --radius-card: 28px;
-  --radius-blob: 46% 54% 58% 42% / 44% 46% 54% 56%;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
   -webkit-tap-highlight-color: transparent;
+  background: var(--color-night);
 }
 
 body {
-  background: var(--color-paper);
+  background: var(--color-night);
   color: var(--color-ink);
   font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--color-plasma-soft);
-  color: var(--color-ink);
+  background: var(--color-accent);
+  color: var(--color-night);
 }
 
 /* Visible, on-brand focus ring for every interactive element */
 :focus-visible {
-  outline: 3px solid var(--color-violet);
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: 12px;
 }
@@ -67,6 +61,19 @@ body {
 
 .text-balance {
   text-wrap: balance;
+}
+
+/* Soft electric halo for accent words */
+.glow {
+  text-shadow: 0 0 24px rgb(255 61 142 / 0.45);
+}
+
+/* Faint precision grid, like a stencil sheet */
+.grid-lines {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
 }
 
 @media (prefers-reduced-motion: reduce) {

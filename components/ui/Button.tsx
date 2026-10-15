@@ -1,19 +1,15 @@
 import type { ReactNode } from "react";
 import { WhatsAppIcon } from "./Icons";
 
-type Variant = "primary" | "plasma" | "ghost" | "light";
+type Variant = "primary" | "ghost";
 type Size = "md" | "lg" | "xl";
 
 const variants: Record<Variant, string> = {
-  // White on violet: 6.2:1
+  // Dark base on plasma pink: 5.9:1. Hover adds a short electric glow.
   primary:
-    "bg-violet text-white shadow-[0_10px_30px_-10px_rgba(106,43,255,0.7)] hover:bg-violet-deep",
-  // Ink on plasma pink: 5.7:1
-  plasma:
-    "bg-plasma text-ink shadow-[0_10px_30px_-12px_rgba(255,79,139,0.8)] hover:bg-[#ff6a9d]",
+    "bg-accent text-night hover:bg-accent-hover hover:shadow-[0_0_32px_-4px_rgba(255,61,142,0.75)]",
   ghost:
-    "bg-white/70 text-ink ring-1 ring-inset ring-ink/15 backdrop-blur-sm hover:bg-white hover:ring-ink/30",
-  light: "bg-paper text-ink hover:bg-white shadow-[0_10px_30px_-14px_rgba(30,20,56,0.35)]",
+    "bg-white/[0.04] text-ink ring-1 ring-inset ring-white/20 backdrop-blur-sm hover:bg-white/[0.08] hover:ring-accent/70 hover:shadow-[0_0_28px_-8px_rgba(255,61,142,0.55)]",
 };
 
 const sizes: Record<Size, string> = {

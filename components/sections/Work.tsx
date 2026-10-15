@@ -4,7 +4,7 @@ import Image from "next/image";
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronIcon, CloseIcon, PlusIcon } from "@/components/ui/Icons";
-import { MaskWords } from "@/components/ui/motion";
+import { LineWipe } from "@/components/ui/motion";
 import { WORK, type Category, type WorkPhoto } from "@/lib/images";
 
 type Filter = "all" | Category;
@@ -45,7 +45,7 @@ export function Work() {
     <section
       id="work"
       aria-labelledby="work-title"
-      className="relative bg-lilac py-24 md:py-32"
+      className="relative border-y border-white/[0.06] bg-surface py-24 md:py-32"
     >
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
@@ -53,7 +53,9 @@ export function Work() {
             id="work-title"
             className="display text-[clamp(2.5rem,7vw,5.5rem)] text-ink"
           >
-            <MaskWords text="Fresh from the studio." accents={{ "studio.": "text-violet" }} />
+            <LineWipe>
+              Fresh from the <span className="text-accent">studio.</span>
+            </LineWipe>
           </h2>
 
           <div role="group" aria-label="Filter the work" className="flex shrink-0 flex-wrap gap-2 md:flex-nowrap">
@@ -69,13 +71,13 @@ export function Work() {
                     setExpanded(false);
                   }}
                   className={`relative h-11 rounded-full px-5 text-[15px] font-semibold transition-colors ${
-                    selected ? "text-white" : "bg-paper/70 text-ink hover:bg-paper"
+                    selected ? "text-night" : "bg-white/[0.05] text-ink ring-1 ring-inset ring-white/10 hover:bg-white/10"
                   }`}
                 >
                   {selected && (
                     <motion.span
                       layoutId="work-filter-pill"
-                      className="absolute inset-0 rounded-full bg-violet"
+                      className="absolute inset-0 rounded-full bg-accent"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -109,7 +111,7 @@ export function Work() {
                   <button
                     type="button"
                     onClick={() => setActiveId(photo.id)}
-                    className="group relative block w-full overflow-hidden rounded-[22px] bg-lilac-deep"
+                    className="group relative block w-full overflow-hidden rounded-[18px] bg-raised transition-shadow duration-300 hover:shadow-[0_0_0_1px_rgba(255,61,142,0.6),0_0_32px_-8px_rgba(255,61,142,0.55)]"
                     style={{ aspectRatio: `${photo.src.width} / ${Math.min(photo.src.height, photo.src.width * 1.5)}` }}
                     aria-label={`Open photo: ${photo.alt}`}
                   >
@@ -125,7 +127,7 @@ export function Work() {
                     </motion.div>
                     <span
                       aria-hidden="true"
-                      className="absolute bottom-3 right-3 grid h-10 w-10 scale-75 place-items-center rounded-full bg-paper text-ink opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100"
+                      className="absolute bottom-3 right-3 grid h-10 w-10 scale-75 place-items-center rounded-full bg-accent text-night opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100"
                     >
                       <PlusIcon size={18} />
                     </span>
@@ -140,7 +142,7 @@ export function Work() {
               <button
                 type="button"
                 onClick={() => setExpanded(true)}
-                className="inline-flex h-13 items-center gap-2 rounded-full bg-paper px-7 font-semibold text-ink ring-1 ring-inset ring-ink/15 transition hover:-translate-y-0.5 hover:ring-ink/30"
+                className="inline-flex h-13 items-center gap-2 rounded-full bg-white/[0.04] px-7 font-semibold text-ink ring-1 ring-inset ring-white/20 transition hover:-translate-y-0.5 hover:ring-accent/70"
               >
                 <PlusIcon size={18} />
                 Show {hiddenCount} more
@@ -220,13 +222,13 @@ function Lightbox({
         aria-label="Close photo viewer"
         tabIndex={-1}
         onClick={onClose}
-        className="absolute inset-0 cursor-zoom-out bg-lilac/90 backdrop-blur-xl"
+        className="absolute inset-0 cursor-zoom-out bg-night/92 backdrop-blur-xl"
       />
 
       <figure className="relative flex max-h-full w-full flex-col items-center">
         <motion.div
           layoutId={`work-${photo.id}`}
-          className="relative w-full overflow-hidden rounded-[22px] shadow-[0_40px_80px_-30px_rgba(30,20,56,0.45)]"
+          className="relative w-full overflow-hidden rounded-[18px] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.8)]"
           style={{
             aspectRatio: ratio,
             maxWidth: `min(100%, calc((100dvh - 9rem) * ${ratio}))`,
@@ -252,7 +254,7 @@ function Lightbox({
         type="button"
         onClick={onClose}
         aria-label="Close photo viewer"
-        className="absolute right-4 top-4 grid h-12 w-12 place-items-center rounded-full bg-paper text-ink shadow-md ring-1 ring-ink/10 transition hover:scale-105"
+        className="absolute right-4 top-4 grid h-12 w-12 place-items-center rounded-full bg-raised text-ink shadow-md ring-1 ring-white/15 transition hover:scale-105"
       >
         <CloseIcon size={22} />
       </button>
@@ -260,7 +262,7 @@ function Lightbox({
         type="button"
         onClick={onPrev}
         aria-label="Previous photo"
-        className="absolute left-3 top-1/2 grid h-12 w-12 -translate-y-1/2 rotate-180 place-items-center rounded-full bg-paper text-ink shadow-md ring-1 ring-ink/10 transition hover:scale-105 sm:left-6"
+        className="absolute left-3 top-1/2 grid h-12 w-12 -translate-y-1/2 rotate-180 place-items-center rounded-full bg-raised text-ink shadow-md ring-1 ring-white/15 transition hover:scale-105 sm:left-6"
       >
         <ChevronIcon size={22} />
       </button>
@@ -268,7 +270,7 @@ function Lightbox({
         type="button"
         onClick={onNext}
         aria-label="Next photo"
-        className="absolute right-3 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-paper text-ink shadow-md ring-1 ring-ink/10 transition hover:scale-105 sm:right-6"
+        className="absolute right-3 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-raised text-ink shadow-md ring-1 ring-white/15 transition hover:scale-105 sm:right-6"
       >
         <ChevronIcon size={22} />
       </button>

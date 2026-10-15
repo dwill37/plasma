@@ -7,10 +7,8 @@ import { Hero } from "@/components/sections/Hero";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Location } from "@/components/sections/Location";
 import { Nav } from "@/components/sections/Nav";
-import { Piercing } from "@/components/sections/Piercing";
 import { Reviews } from "@/components/sections/Reviews";
-import { SmokeShop } from "@/components/sections/SmokeShop";
-import { Tattoos } from "@/components/sections/Tattoos";
+import { Services } from "@/components/sections/Services";
 import { WhyPlasma } from "@/components/sections/WhyPlasma";
 import { Work } from "@/components/sections/Work";
 import { FAQ } from "@/lib/faq";
@@ -73,14 +71,12 @@ export default function Home() {
       <main id="main">
         <Hero />
         <WhyPlasma />
-        <Piercing />
-        <Tattoos />
+        <Services />
         <Work />
         <Artists />
         <Reviews />
         <HowItWorks />
         <Location />
-        <SmokeShop />
         <Faq />
         <FinalCta />
       </main>

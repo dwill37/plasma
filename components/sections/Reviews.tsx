@@ -4,23 +4,22 @@ import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransf
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { StarIcon } from "@/components/ui/Icons";
+import { LineWipe } from "@/components/ui/motion";
 import { BUSINESS, GOOGLE_REVIEWS_URL } from "@/lib/site";
 
+// Verbatim from the brief: Google reviews, translated from French
 const REVIEWS = [
   {
     author: "Irwin S.",
-    meta: "Google Local Guide",
-    text: "We're thrilled with Nigelle Noir's work and highly recommend her. Cleanliness, listening — everything was there. A big plus for French speakers: she speaks French! An artist who deserves to be known and recognized.",
+    text: "We're absolutely delighted with Nigelle Noir's work and highly recommend her. Cleanliness, attentive listening: everything was there. A bonus for French speakers: she speaks French! An artist who deserves to be known and recognized.",
   },
   {
     author: "Sandrine J.",
-    meta: "Google review",
-    text: "A perfect tattoo artist, I recommend her 100%. A perfect welcome, perfect mastery. A big thank you, Shauna, for this beautiful tribute.",
+    text: "A perfect tattoo artist, I recommend her 100%. A perfect welcome and perfect mastery.",
   },
   {
     author: "Shanna L.",
-    meta: "Google review",
-    text: "Shauna tattooed me — absolutely wonderful, an incredible result. Thank you so much for this beautiful souvenir of Mexico.",
+    text: "Shauna tattooed me and it was just perfect, wonderful, an incredible result. Thank you so much for this beautiful souvenir of Mexico!",
   },
 ];
 
@@ -54,13 +53,13 @@ function RatingBlock() {
         Rated {BUSINESS.rating} out of 5 on Google, based on {BUSINESS.reviewCount} reviews.
       </p>
       <div aria-hidden="true">
-        <motion.span className="display block text-[clamp(7rem,20vw,13rem)] leading-[0.8] tracking-[-0.07em] text-violet tabular-nums">
+        <motion.span className="display glow block text-[clamp(7rem,20vw,13rem)] leading-[0.8] tracking-[-0.07em] text-accent tabular-nums">
           {label}
         </motion.span>
         <div className="relative mt-6 inline-block">
-          <Stars size={40} className="text-lilac-deep" />
+          <Stars size={40} className="text-white/15" />
           <motion.span className="absolute inset-0" style={{ clipPath: fill }}>
-            <Stars size={40} className="text-plasma" />
+            <Stars size={40} className="text-accent" />
           </motion.span>
         </div>
         <p className="mt-4 text-lg font-medium text-ink">
@@ -78,11 +77,11 @@ export function Reviews() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="reviews" aria-labelledby="reviews-title" className="relative overflow-clip bg-lilac py-24 md:py-36">
+    <section id="reviews" aria-labelledby="reviews-title" className="relative overflow-clip border-y border-white/[0.06] bg-surface py-24 md:py-36">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
-        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-plasma-ink">Reviews</p>
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">Reviews</p>
         <h2 id="reviews-title" className="display mt-4 max-w-3xl text-[clamp(2.25rem,5.5vw,4.25rem)] text-ink text-balance">
-          In their own words.
+          <LineWipe>In their own words.</LineWipe>
         </h2>
 
         <div className="mt-14 grid gap-14 lg:grid-cols-12 lg:gap-10">
@@ -98,14 +97,14 @@ export function Reviews() {
                 whileInView={{ opacity: 1, x: 0, rotate: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ type: "spring", stiffness: 110, damping: 18, delay: i * 0.08 }}
-                className={`rounded-[28px] bg-paper p-7 shadow-[0_24px_50px_-30px_rgba(106,43,255,0.45)] sm:p-9 ${
+                className={`rounded-[24px] bg-raised p-7 ring-1 ring-inset ring-white/[0.08] transition-shadow duration-300 hover:shadow-[0_0_0_1px_rgba(255,61,142,0.45),0_0_40px_-12px_rgba(255,61,142,0.5)] sm:p-9 ${
                   i === 1 ? "lg:ml-12" : ""
                 }`}
               >
                 <figure>
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <Stars className="text-plasma" />
-                    <span className="rounded-full bg-lilac px-3 py-1 text-xs font-semibold text-ink-soft">
+                    <Stars className="text-accent" />
+                    <span className="rounded-full bg-white/[0.06] px-3 py-1 text-xs font-semibold text-ink-soft">
                       Translated from French
                     </span>
                   </div>
@@ -116,13 +115,13 @@ export function Reviews() {
                   <figcaption className="mt-6 flex items-center gap-3">
                     <span
                       aria-hidden="true"
-                      className="grid h-11 w-11 place-items-center rounded-full bg-violet font-display text-sm font-bold text-white"
+                      className="grid h-11 w-11 place-items-center rounded-full bg-white/[0.08] font-display text-sm font-bold text-ink ring-1 ring-white/15"
                     >
                       {r.author.charAt(0)}
                     </span>
                     <span>
                       <span className="block font-semibold text-ink">{r.author}</span>
-                      <span className="block text-sm text-ink-soft">{r.meta}</span>
+                      <span className="block text-sm text-ink-soft">Google review</span>
                     </span>
                   </figcaption>
                 </figure>

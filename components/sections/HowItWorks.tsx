@@ -3,24 +3,21 @@
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/Button";
-import { MaskWords, SPRING } from "@/components/ui/motion";
+import { LineWipe, SPRING } from "@/components/ui/motion";
 import { waLink } from "@/lib/site";
 
 const STEPS = [
   {
     title: "Message us on WhatsApp",
-    body: "Tell us the piercing you want or share your tattoo idea.",
-    dot: "bg-violet text-white",
+    body: "Send your tattoo idea or the piercing you want. A photo or a sketch helps.",
   },
   {
-    title: "We plan it together",
-    body: "We confirm the details and your appointment with you.",
-    dot: "bg-plasma text-ink",
+    title: "Get advice and a quote",
+    body: "We talk it through with you and send you a quote, so you know where you stand.",
   },
   {
-    title: "Come to the studio",
-    body: "Meet us at PLASMA in Ejidal, Playa del Carmen.",
-    dot: "bg-ink text-paper",
+    title: "Come to the shop in Ejidal",
+    body: "Meet us at PLASMA in Ejido Sur, Ejidal, Playa del Carmen.",
   },
 ];
 
@@ -32,46 +29,42 @@ export function HowItWorks() {
   const draw = useTransform(smooth, [0, 1], reduce ? [1, 1] : [0, 1]);
 
   return (
-    <section ref={ref} aria-labelledby="how-title" className="relative overflow-clip bg-paper py-24 md:py-36">
+    <section ref={ref} aria-labelledby="how-title" className="relative overflow-clip bg-night py-24 md:py-36">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
         <h2 id="how-title" className="display max-w-3xl text-[clamp(2.25rem,6vw,4.75rem)] text-ink text-balance">
-          <MaskWords text="Booking takes one message." accents={{ "message.": "text-violet" }} />
+          <LineWipe>
+            Booking takes one <span className="text-accent">message.</span>
+          </LineWipe>
         </h2>
 
         <div className="relative mt-16 md:mt-24">
-          {/* Plasma tendril drawn by scroll (desktop: horizontal, mobile: vertical) */}
+          {/* Needle path drawn by scroll (desktop: horizontal, mobile: vertical) */}
           <svg
             aria-hidden="true"
             viewBox="0 0 1200 120"
             preserveAspectRatio="none"
-            className="absolute left-0 top-7 hidden h-24 w-full md:block"
+            className="absolute left-0 top-7 hidden h-24 w-full drop-shadow-[0_0_6px_rgba(255,61,142,0.8)] md:block"
           >
             <motion.path
               d="M48,15 C170,95 340,-40 462,15 S760,95 876,15"
               fill="none"
-              stroke="url(#tendril)"
-              strokeWidth="6"
+              stroke="#ff3d8e"
+              strokeWidth="3"
               strokeLinecap="round"
               style={{ pathLength: draw }}
             />
-            <defs>
-              <linearGradient id="tendril" x1="0" x2="1" y1="0" y2="0">
-                <stop offset="0" stopColor="#6a2bff" />
-                <stop offset="1" stopColor="#ff4f8b" />
-              </linearGradient>
-            </defs>
           </svg>
           <svg
             aria-hidden="true"
             viewBox="0 0 20 400"
             preserveAspectRatio="none"
-            className="absolute left-[27px] top-4 h-[calc(100%-4rem)] w-5 md:hidden"
+            className="absolute left-[27px] top-4 h-[calc(100%-4rem)] w-5 drop-shadow-[0_0_5px_rgba(255,61,142,0.8)] md:hidden"
           >
             <motion.path
               d="M10,0 C22,80 -2,160 10,240 S18,360 10,400"
               fill="none"
-              stroke="#6a2bff"
-              strokeWidth="4"
+              stroke="#ff3d8e"
+              strokeWidth="2.5"
               strokeLinecap="round"
               vectorEffect="non-scaling-stroke"
               style={{ pathLength: draw }}
@@ -89,7 +82,7 @@ export function HowItWorks() {
                 transition={{ duration: 0.6, delay: i * 0.12 }}
               >
                 <motion.span
-                  className={`display grid h-14 w-14 shrink-0 place-items-center rounded-full text-xl shadow-[0_12px_30px_-12px_rgba(106,43,255,0.6)] md:h-20 md:w-20 md:text-3xl ${s.dot}`}
+                  className={`display grid h-14 w-14 shrink-0 place-items-center rounded-full text-xl md:h-20 md:w-20 md:text-3xl ${i === 0 ? "bg-accent text-night" : "bg-raised text-ink ring-1 ring-white/15"}`}
                   initial={reduce ? false : { scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true, amount: 0.8 }}

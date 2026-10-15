@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useId, useState } from "react";
 import { PlusIcon } from "@/components/ui/Icons";
-import { EASE_OUT, MaskWords } from "@/components/ui/motion";
+import { EASE_OUT, LineWipe } from "@/components/ui/motion";
 import { FAQ } from "@/lib/faq";
 
 export function Faq() {
@@ -12,11 +12,11 @@ export function Faq() {
   const baseId = useId();
 
   return (
-    <section id="faq" aria-labelledby="faq-title" className="relative bg-paper py-24 md:py-32">
+    <section id="faq" aria-labelledby="faq-title" className="relative bg-night py-24 md:py-32">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-plasma-ink">FAQ</p>
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">FAQ</p>
         <h2 id="faq-title" className="display mt-4 text-[clamp(2.25rem,6vw,4.5rem)] text-ink">
-          <MaskWords text="Good to know." />
+          <LineWipe>Good to know.</LineWipe>
         </h2>
 
         <ul className="mt-12 space-y-3">
@@ -28,7 +28,7 @@ export function Faq() {
               <li
                 key={item.question}
                 className={`overflow-hidden rounded-[24px] transition-colors duration-300 ${
-                  isOpen ? "bg-lilac" : "bg-lilac/45 hover:bg-lilac/70"
+                  isOpen ? "bg-raised ring-1 ring-inset ring-accent/40" : "bg-surface ring-1 ring-inset ring-white/[0.06] hover:bg-raised"
                 }`}
               >
                 <h3>
@@ -51,7 +51,7 @@ export function Faq() {
                       animate={{ rotate: isOpen ? 45 : 0 }}
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                       className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-colors ${
-                        isOpen ? "bg-violet text-white" : "bg-paper text-ink"
+                        isOpen ? "bg-accent text-night" : "bg-white/[0.06] text-ink"
                       }`}
                     >
                       <PlusIcon size={18} />

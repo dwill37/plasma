@@ -50,7 +50,7 @@ export function Nav() {
         {/* Solid layer fades in behind the bar on scroll */}
         <motion.div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 border-b border-ink/8 bg-paper/85 backdrop-blur-xl"
+          className="absolute inset-0 -z-10 border-b border-white/10 bg-night/85 backdrop-blur-xl"
           initial={false}
           animate={{ opacity: solid ? 1 : 0 }}
           transition={{ duration: 0.3 }}
@@ -62,16 +62,16 @@ export function Nav() {
           aria-label="PLASMA, back to top"
           onClick={() => setOpen(false)}
         >
-          PLASMA<span className="text-plasma">.</span>
+          PLASMA<span className="text-accent">.</span>
         </a>
 
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-0.5 rounded-full bg-paper/75 p-1 ring-1 ring-ink/5 backdrop-blur-md">
+          <ul className="flex items-center gap-0.5 rounded-full bg-night/60 p-1 ring-1 ring-white/10 backdrop-blur-md">
             {NAV_LINKS.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="rounded-full px-3.5 py-2 text-[15px] font-medium text-ink/80 transition-colors hover:bg-ink/5 hover:text-ink"
+                  className="rounded-full px-3.5 py-2 text-[15px] font-medium text-ink/80 transition-colors hover:bg-white/10 hover:text-ink"
                 >
                   {l.label}
                 </a>
@@ -93,7 +93,7 @@ export function Nav() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="relative grid h-11 w-11 place-items-center rounded-full bg-ink text-paper lg:hidden"
+            className="relative grid h-11 w-11 place-items-center rounded-full bg-raised text-ink ring-1 ring-white/15 lg:hidden"
           >
             <motion.span
               className="absolute h-[2px] w-5 rounded bg-current"
@@ -116,7 +116,7 @@ export function Nav() {
             role="dialog"
             aria-modal="true"
             aria-label="Menu"
-            className="fixed inset-0 -z-10 flex flex-col overflow-y-auto bg-lilac px-4 pb-10 pt-28 sm:px-6 lg:hidden"
+            className="fixed inset-0 -z-10 flex flex-col overflow-y-auto bg-night px-4 pb-10 pt-28 sm:px-6 lg:hidden"
             initial={{ clipPath: "circle(0% at 90% 38px)" }}
             animate={{ clipPath: "circle(150% at 90% 38px)" }}
             exit={{ clipPath: "circle(0% at 90% 38px)" }}
@@ -124,7 +124,7 @@ export function Nav() {
           >
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -right-24 bottom-24 h-80 w-80 rounded-full bg-plasma-soft blur-3xl"
+              className="pointer-events-none absolute -right-24 bottom-24 h-80 w-80 rounded-full bg-accent/25 blur-3xl"
             />
             <nav aria-label="Mobile" className="relative">
               <motion.ul
@@ -161,14 +161,14 @@ export function Nav() {
                 href={waLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-14 items-center justify-center gap-2.5 rounded-full bg-violet text-lg font-semibold text-white"
+                className="inline-flex h-14 items-center justify-center gap-2.5 rounded-full bg-accent text-lg font-semibold text-night"
               >
                 <WhatsAppIcon size={22} />
                 Book on WhatsApp
               </a>
               <a
                 href={BUSINESS.phoneHref}
-                className="inline-flex h-14 items-center justify-center gap-2.5 rounded-full bg-paper text-lg font-semibold text-ink ring-1 ring-ink/10"
+                className="inline-flex h-14 items-center justify-center gap-2.5 rounded-full bg-raised text-lg font-semibold text-ink ring-1 ring-white/15"
               >
                 <PhoneIcon size={20} />
                 {BUSINESS.phoneDisplay}

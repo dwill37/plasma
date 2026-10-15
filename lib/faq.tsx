@@ -9,43 +9,39 @@ export type FaqItem = {
   answer: ReactNode;
 };
 
-const link = "font-semibold text-violet underline decoration-2 underline-offset-4 hover:text-violet-deep";
+const link = "font-semibold text-accent underline decoration-2 underline-offset-4 hover:text-accent-hover";
+
+const wa = (message: string, label: string) => (
+  <a href={waLink(message)} target="_blank" rel="noopener noreferrer" className={link}>
+    {label}
+  </a>
+);
 
 export const FAQ: FaqItem[] = [
   {
     question: "How do I book?",
-    plain: `Send us a message on WhatsApp at ${BUSINESS.phoneDisplay}. Tell us the piercing you want or your tattoo idea, and we'll confirm the details and your appointment together.`,
+    plain: `Message us on WhatsApp or call ${BUSINESS.phoneDisplay}. Tell us the piercing you want or your tattoo idea, and we'll take it from there.`,
     answer: (
       <>
-        Send us a message on{" "}
-        <a href={waLink()} target="_blank" rel="noopener noreferrer" className={link}>
-          WhatsApp
-        </a>{" "}
-        at {BUSINESS.phoneDisplay}. Tell us the piercing you want or your tattoo idea, and
-        we&apos;ll confirm the details and your appointment together.
+        {wa(MESSAGES.general, "Message us on WhatsApp")} or call{" "}
+        <a href={BUSINESS.phoneHref} className={link}>
+          {BUSINESS.phoneDisplay}
+        </a>
+        . Tell us the piercing you want or your tattoo idea, and we&apos;ll take it from there.
       </>
     ),
   },
   {
-    question: "How much does a piercing or tattoo cost?",
+    question: "Is it clean and sterile?",
     plain:
-      "Every piece is different, so we quote each one individually. Message us on WhatsApp with what you have in mind and we'll send you a quote.",
+      "Cleanliness and sterilization are among the things our Google reviewers mention most. Want to know exactly how we work? Ask us on WhatsApp before your visit.",
     answer: (
       <>
-        Every piece is different, so we quote each one individually.{" "}
-        <a href={waLink(MESSAGES.quote)} target="_blank" rel="noopener noreferrer" className={link}>
-          Message us on WhatsApp
-        </a>{" "}
-        with what you have in mind and we&apos;ll send you a quote.
+        Cleanliness and sterilization are among the things our Google reviewers mention most.
+        Want to know exactly how we work? {wa(MESSAGES.general, "Ask us on WhatsApp")} before your
+        visit.
       </>
     ),
-  },
-  {
-    question: "Is the studio clean and sterilized?",
-    plain:
-      "Yes. Cleanliness and sterilization are what our Google reviewers mention most when they talk about their visit.",
-    answer:
-      "Yes. Cleanliness and sterilization are what our Google reviewers mention most when they talk about their visit.",
   },
   {
     question: "Parlez-vous français ?",
@@ -56,23 +52,43 @@ export const FAQ: FaqItem[] = [
       <>
         Yes! Nigelle Noir speaks French.
         <span lang="fr" className="mt-2 block">
-          Oui ! Nigelle Noir parle français.{" "}
-          <a
-            href={waLink(MESSAGES.nigelle)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={link}
-          >
-            Écrivez-nous sur WhatsApp
-          </a>{" "}
+          Oui ! Nigelle Noir parle français. {wa(MESSAGES.nigelle, "Écrivez-nous sur WhatsApp")}{" "}
           pour réserver.
         </span>
       </>
     ),
   },
   {
-    question: "Is the studio LGBTQ+ friendly?",
-    plain: "Yes. PLASMA is an LGBTQ+ friendly studio, and everyone is welcome here.",
-    answer: "Yes. PLASMA is an LGBTQ+ friendly studio, and everyone is welcome here.",
+    question: "Do you take walk-ins?",
+    plain:
+      "Send us a WhatsApp message before you come and we'll tell you when we can see you. It saves you a wasted trip.",
+    answer: (
+      <>
+        {wa(MESSAGES.availability, "Send us a WhatsApp message")} before you come and we&apos;ll
+        tell you when we can see you. It saves you a wasted trip.
+      </>
+    ),
+  },
+  {
+    question: "How much does it cost?",
+    plain:
+      "Every piercing and tattoo is different, so we quote each one individually. Message us on WhatsApp for a quote.",
+    answer: (
+      <>
+        Every piercing and tattoo is different, so we quote each one individually.{" "}
+        {wa(MESSAGES.quote, "Message us on WhatsApp")} for a quote.
+      </>
+    ),
+  },
+  {
+    question: "What about aftercare?",
+    plain:
+      "Aftercare depends on your piercing or tattoo. Ask us on WhatsApp and we'll tell you how to look after yours.",
+    answer: (
+      <>
+        Aftercare depends on your piercing or tattoo. {wa(MESSAGES.general, "Ask us on WhatsApp")}{" "}
+        and we&apos;ll tell you how to look after yours.
+      </>
+    ),
   },
 ];

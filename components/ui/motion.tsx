@@ -1,8 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion, type Transition } from "framer-motion";
-import { useMemo } from "react";
-import { blobLoop } from "./blob";
+import type { ReactNode } from "react";
 
 export const EASE_OUT: Transition["ease"] = [0.16, 1, 0.3, 1];
 export const SPRING = { type: "spring", stiffness: 260, damping: 22 } as const;
@@ -65,6 +64,47 @@ export function MaskWords({
   );
 }
 
+/**
+ * A needle-sharp line sweeps left to right and unmasks the text behind it.
+ * Text stays in the DOM (and readable by assistive tech) the whole time.
+ */
+export function LineWipe({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
+  const reduce = useReducedMotion();
+  if (reduce) return <>{children}</>;
+  return (
+    // overflow-x: clip keeps the travelling line from widening the page; vertical stays visible
+    <motion.span
+      className="relative inline-block overflow-x-clip"
+      initial="hide"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.7 }}
+    >
+      <motion.span
+        className="inline-block"
+        variants={{
+          hide: { clipPath: "inset(-10% 100% -20% 0)" },
+          show: { clipPath: "inset(-10% 0% -20% 0)" },
+        }}
+        transition={{ duration: 0.9, delay, ease: [0.65, 0, 0.35, 1] }}
+      >
+        {children}
+      </motion.span>
+      {/* Full-width track moved with transform, so the line travels the text's width */}
+      <motion.span
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-[0.1em] -top-[0.05em] left-0 w-full"
+        variants={{ hide: { x: "0%", opacity: 0 }, show: { x: "100%", opacity: [1, 1, 0] } }}
+        transition={{
+          x: { duration: 0.9, delay, ease: [0.65, 0, 0.35, 1] },
+          opacity: { duration: 1.1, delay, times: [0, 0.8, 1] },
+        }}
+      >
+        <span className="absolute inset-y-0 left-0 w-[2px] bg-accent shadow-[0_0_14px_2px_rgba(255,61,142,0.8)]" />
+      </motion.span>
+    </motion.span>
+  );
+}
+
 /** Words fade in from a soft blur, for pull-quotes. */
 export function GlowWords({ text, className = "" }: { text: string; className?: string }) {
   const reduce = useReducedMotion();
@@ -90,33 +130,5 @@ export function GlowWords({ text, className = "" }: { text: string; className?: 
         </motion.span>
       ))}
     </motion.span>
-  );
-}
-
-/** A soft, endlessly morphing plasma blob (decorative). */
-export function PlasmaBlob({
-  seeds,
-  className = "",
-  fill = "currentColor",
-  duration = 14,
-  wobble,
-}: {
-  seeds: number[];
-  className?: string;
-  fill?: string;
-  duration?: number;
-  wobble?: number;
-}) {
-  const reduce = useReducedMotion();
-  const paths = useMemo(() => blobLoop(seeds, wobble), [seeds, wobble]);
-  return (
-    <svg viewBox="0 0 200 200" className={className} aria-hidden="true">
-      <motion.path
-        fill={fill}
-        initial={{ d: paths[0] }}
-        animate={reduce ? undefined : { d: paths }}
-        transition={{ duration, repeat: Infinity, ease: "easeInOut" }}
-      />
-    </svg>
   );
 }
