@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/*
+  PLASMA design tokens.
+  Light theme only, by brief: no dark section backgrounds anywhere.
+  Accent pairing: electric violet (buttons, links, focus) + plasma pink (shapes, highlights).
+  Pink never carries white text (contrast too low); it always pairs with ink.
+*/
+@theme {
+  --color-lilac: #ede8ff;
+  --color-lilac-deep: #ddd4ff;
+  --color-paper: #fcfbff;
+  --color-ink: #1e1438;
+  --color-ink-soft: #4b4166;
+  --color-violet: #6a2bff;
+  --color-violet-deep: #5216e6;
+  --color-violet-soft: #c9b8ff;
+  --color-plasma: #ff4f8b;
+  --color-plasma-soft: #ffc2d6;
+  --color-plasma-ink: #c8195a;
+
+  --font-display: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 28px;
+  --radius-blob: 46% 54% 58% 42% / 44% 46% 54% 56%;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-plasma-soft);
+  color: var(--color-ink);
+}
+
+/* Visible, on-brand focus ring for every interactive element */
+:focus-visible {
+  outline: 3px solid var(--color-violet);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* Display type: wide face, tracking pulled in as size grows (poster cadence) */
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
